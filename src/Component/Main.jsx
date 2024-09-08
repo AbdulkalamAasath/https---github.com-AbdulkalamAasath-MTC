@@ -7,7 +7,6 @@ const Main = () => {
  
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#f7f7f7', margin: 0, padding: 0, boxSizing: 'border-box' }}>
-      <Navbar  />
       <Enquiry />
       <div className="container" style={{ display: 'flex', padding: '2em' }}>
       </div>
