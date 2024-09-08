@@ -1,4 +1,5 @@
 const Data = require('../Modules/Enquiry')
+const Folio = require('../Modules/Folio')
 const DataEntry = async(req,res) =>
 {
     try{
@@ -16,4 +17,18 @@ const DataEntry = async(req,res) =>
     res.status(400).json(err.message)
  }
 }
-module.exports = {DataEntry}
+
+const FolioEntry = async(req,res) => {
+  try{
+  const {Fn,qn} = req.body
+  const data = await Folio.create({FolioNumber:Fn,Quantity:qn})
+  res.status(200).json(data)
+
+}
+catch(err)
+{
+  res.status(400).json(err.message)
+}
+
+}
+module.exports = {DataEntry,FolioEntry}

@@ -1,10 +1,19 @@
 import React from 'react'
-import Enquiryentry from './Component/Enquiryentry'
+import {BrowserRouter,Navigate,Route,Routes} from 'react-router-dom'
+import Enquiry from './Component/Enquiry'
+import FolioEntry from './Component/FolioEntry'
+import Main from './Component/Main'
 
 const App = () => {
   return (
     <div>
-     <Enquiryentry></Enquiryentry>
+    <BrowserRouter>
+         <Routes>
+         <Route path='/' element={<Main></Main>}></Route>
+          <Route path='/Enquiry-Entry' element={<Enquiry></Enquiry>}></Route>
+          <Route path='/Folio-Entry' element={<FolioEntry></FolioEntry>}></Route>
+         </Routes>
+    </BrowserRouter>
     </div>
   )
 }
