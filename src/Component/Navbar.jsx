@@ -24,6 +24,7 @@ const Navbar = () => {
             <div className="dropdown-content" style={{ display: 'block', position: 'absolute', backgroundColor: 'white', minWidth: '160px', boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)', zIndex: 1 }}>
               <a href="/Enquiry-Entry" style={{ padding: '12px 16px', display: 'block', textDecoration: 'none', color: 'black' }}>Enquiry Entry</a>
               <a href="/Folio-Entry" style={{ padding: '12px 16px', display: 'block', textDecoration: 'none', color: 'black' }}>Folio Entry</a>
+              <a href="/New-Folio" style={{ padding: '12px 16px', display: 'block', textDecoration: 'none', color: 'black' }}>New Folio Entry</a>
             </div>
           )}
         </div>

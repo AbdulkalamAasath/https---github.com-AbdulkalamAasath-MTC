@@ -4,11 +4,12 @@ import Navbar from './Navbar'
 const FolioEntry = () => {
     const [Fn,SetFn] = useState(null)
     const [qn,SetQn] = useState(null)
+    const [error,setError] = useState(null)
     const handelclick = async(e) =>
     {
         e.preventDefault()
              const data = {Fn:Fn,qn:qn}
-             const response = await fetch(`http://localhost:4000/MTC/folioentry`, {
+             const response = await fetch(`http://localhost:4000/MTC/updatefolioentry`, {
               method: 'POST',
               body: JSON.stringify(data),
               headers: {
@@ -17,9 +18,15 @@ const FolioEntry = () => {
             });
             if(response.ok)
             {
+              if(await response.json() == null)
+              {
+                setError("Folio Number is not Available")
+              }
+              else{
               window.alert("Data stored")
               console.log("Data stored")
               window.location.reload()
+              }
             }
        
     }
@@ -44,6 +51,7 @@ const FolioEntry = () => {
           <button type="submit" className="submit-btn" style={{ padding: '0.8em 1.5em', border: 'none', backgroundColor: 'black', color: 'white', cursor: 'pointer', borderRadius: '4px', fontWeight: 'bold' }}>Submit</button>
         </div>
       </form>
+      {error && <div>{error}</div>}
     </div>
   </div>
   </div>

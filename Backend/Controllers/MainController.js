@@ -20,10 +20,9 @@ const DataEntry = async(req,res) =>
 
 const FolioEntry = async(req,res) => {
   try{
-  const {Fn,qn} = req.body
-  const data = await Folio.create({FolioNumber:Fn,Quantity:qn})
+  const {Fn} = req.body
+  const data = await Folio.create({FolioNumber:Fn})
   res.status(200).json(data)
-
 }
 catch(err)
 {
@@ -31,4 +30,16 @@ catch(err)
 }
 
 }
-module.exports = {DataEntry,FolioEntry}
+const FolioUpdate = async(req,res) => {
+  try{
+  const {Fn,qn} = req.body
+  const data = await Folio.findOneAndUpdate({FolioNumber:Fn},{Quantity:qn},{new:true})
+  res.status(200).json(data)
+}
+catch(err)
+{
+  res.status(400).json(err.message)
+}
+
+}
+module.exports = {DataEntry,FolioEntry,FolioUpdate}
