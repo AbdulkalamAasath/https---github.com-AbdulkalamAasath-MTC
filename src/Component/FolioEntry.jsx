@@ -110,45 +110,6 @@ const FolioEntry = () => {
                     </form>
                 </div>
             </div>
-
-            {showPopup && (
-                <div style={{
-                    position: 'fixed',
-                    top: '20%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '300px',
-                    padding: '1em',
-                    backgroundColor: '#fff',
-                    border: '1px solid #ddd',
-                    borderRadius: '8px',
-                    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-                    zIndex: 1000
-                }}>
-                    <h3 style={{ textAlign: 'center' }}>Add New Folio Number</h3>
-                    <input
-                        value={newFolio}
-                        onChange={(e) => setNewFolio(e.target.value)}
-                        type="text"
-                        placeholder="Enter New Folio Number"
-                        style={{ width: '100%', padding: '0.8em', marginBottom: '1em', border: '1px solid #ddd', borderRadius: '4px', backgroundColor: '#fefefe' }}
-                    />
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5em' }}>
-                        <button
-                            onClick={handleAddFolio}
-                            style={{ padding: '0.8em 1.5em', border: 'none', backgroundColor: 'black', color: 'white', cursor: 'pointer', borderRadius: '4px', fontWeight: 'bold' }}
-                        >
-                            Add Folio
-                        </button>
-                        <button
-                            onClick={() => setShowPopup(false)}
-                            style={{ padding: '0.8em 1.5em', border: 'none', backgroundColor: 'grey', color: 'white', cursor: 'pointer', borderRadius: '4px', fontWeight: 'bold' }}
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };
