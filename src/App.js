@@ -5,6 +5,8 @@ import FolioEntry from './Component/FolioEntry'
 import Main from './Component/Main'
 import NewFolio from './Component/NewFolio'
 import AddFolioPopup from './Component/AddFolioPopup'
+import EnquiryDetails from './Component/EnquiryDetails'
+import FolioDetails from './Component/FolioDetails'
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
           <Route path='/Folio-Entry' element={<FolioEntry></FolioEntry>}></Route>
           <Route path='/New-Folio' element={<NewFolio/>}></Route>
           <Route path='/foliopage' element={<AddFolioPopup/>}></Route>
+          <Route path='/Enquiry-Details' element={<EnquiryDetails/>}></Route>
+          <Route path='/Folio-Details' element={<FolioDetails/>}></Route>
          </Routes>
     </BrowserRouter>
     </div>

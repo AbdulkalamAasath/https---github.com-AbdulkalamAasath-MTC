@@ -42,4 +42,26 @@ catch(err)
 }
 
 }
-module.exports = {DataEntry,FolioEntry,FolioUpdate}
+const getFolio = async(req,res) => {
+  try{
+  const data = await Folio.find()
+  res.status(200).json(data)
+}
+catch(err)
+{
+  res.status(400).json(err.message)
+}
+
+}
+const getEnquiry = async(req,res) => {
+  try{
+  const data = await Data.find()
+  res.status(200).json(data)
+}
+catch(err)
+{
+  res.status(400).json(err.message)
+}
+
+}
+module.exports = {DataEntry,FolioEntry,FolioUpdate,getEnquiry,getFolio}
