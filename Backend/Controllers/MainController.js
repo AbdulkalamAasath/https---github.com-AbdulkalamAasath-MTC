@@ -1,5 +1,6 @@
 const Data = require('../Modules/Enquiry')
 const Folio = require('../Modules/Folio')
+const Sp = require('../Modules/Supplier')
 const DataEntry = async(req,res) =>
 {
     try{
@@ -64,4 +65,47 @@ catch(err)
 }
 
 }
-module.exports = {DataEntry,FolioEntry,FolioUpdate,getEnquiry,getFolio}
+
+const SupplierEntry = async(req,res) => {
+  try{
+  const {sc,ssc} = req.body
+  const data = await Sp.create({SupplierEnquiry:sc,StuSupplier:ssc})
+  res.status(200).json(data)
+}
+catch(err)
+{
+  res.status(400).json(err.message)
+}
+}
+const SupplierEntryDetails = async(req,res) => {
+  try{
+  const data = await Sp.find()
+  res.status(200).json(data)
+}
+catch(err)
+{
+  res.status(400).json(err.message)
+}
+}
+const FolioArrayUpdate = async (req, res) => {
+  try {
+    const { Fn, qn } = req.body; // Destructuring from req.body
+    const { id } = req.params; // Destructuring from req.params
+
+    const data = await Data.findOneAndUpdate(
+      { _id: id }, 
+      { $push: { Folios: { Folio_Number: Fn, Quantity: qn } } },
+      { new: true } 
+    );
+
+    if (!data) {
+      return res.status(404).json({ message: 'Data not found' });
+    }
+
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+
+module.exports = {DataEntry,FolioEntry,FolioUpdate,getEnquiry,getFolio,SupplierEntry,SupplierEntryDetails,FolioArrayUpdate}

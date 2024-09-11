@@ -8,6 +8,11 @@ const Enquiry = () => {
     const [dueDate, setDueDate] = useState('');
     const [entryTime, setEntryTime] = useState('');
     const [csReport, setCsReport] = useState('');
+    const [folio,setFolio] = useState(false)
+    const [id,setId] = useState('')
+    const [fn,setFn] = useState(null)
+    const [qn,setQn] = useState(null)
+    const [error,setError] = useState()
 
     const handleSubmit = async(e) =>
         {
@@ -24,9 +29,47 @@ const Enquiry = () => {
             {
               window.alert("Data stored")
               console.log("Data stored")
-              window.location.reload()
+              const json = await response.json()
+              setId(json._id)
+              setFolio(true)
             }
         }
+
+    const handelcontinue = async() =>
+    {
+        const data = { Fn:fn , qn }
+        const res = await fetch('http://localhost:4000/MTC/updatefolioentry', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (res.ok) {
+            const result = await res.json();
+            if (result === null) {
+                setError('Folio Number is not Available');
+            } else {
+                const newFolio = {Fn:fn,qn:qn}
+                const response = await fetch(`http://localhost:4000/MTC/Folioupdate/${id}`, {
+                    method: 'POST',
+                    body: JSON.stringify( newFolio ),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if(response.ok)
+                {
+                    window.alert("Data stored")
+                    setFn('')
+                    setQn('')
+                    setError(null)
+                }
+            }
+        }
+
+    }
     // Inline styles
     const styles = {
         navbar: {
@@ -130,12 +173,17 @@ const Enquiry = () => {
             backgroundColor: '#201f1f',
         },
     };
+    const handleclose = (e) =>
+    {
+       e.preventDefault()
+       window.location.reload()
+    }
 
     return (
         <div>
             <Navbar/>
             {/* Form Container */}
-            <div style={styles.container}>
+            {!folio && <div style={styles.container}>
                 <div className="enquiry-entry">
                     <h2 style={styles.heading}>ENQUIRY ENTRY</h2>
                     <div className="enquiry-details">
@@ -145,7 +193,7 @@ const Enquiry = () => {
                             <div style={styles.formGroup}>
                                 <label htmlFor="entry-date" style={styles.formLabel}>Entry Date *</label>
                                 <input
-                                    type="date"
+                                    type="text"
                                     id="entry-date"
                                     style={styles.formControl}
                                     value={entryDate}
@@ -204,7 +252,21 @@ const Enquiry = () => {
                         </form>
                     </div>
                 </div>
-            </div>
+            </div>}
+            {folio && 
+            <div> 
+                <form onSubmit={(e) => handleclose(e)}>
+                <label htmlFor='folio'>folio Number</label>
+                <input type='number' id='folio' value ={fn} onChange={(e) => setFn(e.target.value)}></input>
+                <label htmlFor='qn'>Quantity</label>
+                <input type='number' id='qn' value ={qn} onChange={(e) => setQn(e.target.value)}></input>
+                <button type='button'onClick={handelcontinue}>Continue</button>
+                <button type='submit'>Close</button>
+                {error && (
+                            <div style={{ color: 'red', marginTop: '1em', textAlign: 'center' }}>{error}</div>
+                        )}
+                </form>
+            </div>}
         </div>
     );
 };

@@ -20,6 +20,7 @@ const Enquiryentry = () => {
       if(response.ok)
       {
         console.log("Data stored")
+        console.log(await response.json())
       }
   }
   return (

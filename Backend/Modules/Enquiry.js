@@ -6,7 +6,19 @@ const EntrySchema = new Schema(
     AlphaLetter:{type:String},
     DueDate:{type:Date},
     EntryTime:{type:String},
-    Csreport:{type:String} 
+    Csreport:{type:String} ,
+    Folios:[
+        {
+            Folio_Number:
+            {
+                type:String
+            },
+            Quantity:
+            {
+                type:Number
+            }  
+        }
+    ]
 }
 )  
 module.exports = mongoose.model('Enquire-Entry',EntrySchema)
