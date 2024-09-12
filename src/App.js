@@ -10,6 +10,7 @@ import FolioDetails from './Component/FolioDetails'
 import EnquirySupplier from './Component/EnquirySupplier'
 import SupplierDetails from './Component/SupplierDetails'
 import SupplierEnquiry from './Component/SupplierEnquiry'
+import ListEnquiry from './Component/ListEnquiry'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route path='/Folio-Details' element={<FolioDetails/>}></Route>
           <Route path='/Supplier-Enquiry' element={<SupplierEnquiry/>}></Route>
           <Route path='/Supplier-Details' element={<SupplierDetails/>}></Route>
+          <Route path='/List-Enquiry' element={<ListEnquiry/>}></Route>
          </Routes>
     </BrowserRouter>
     </div>

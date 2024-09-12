@@ -54,17 +54,25 @@ catch(err)
 }
 
 }
-const getEnquiry = async(req,res) => {
-  try{
-  const data = await Data.find()
-  res.status(200).json(data)
-}
-catch(err)
-{
-  res.status(400).json(err.message)
-}
+const getEnquiry = async (req, res) => {
+  try {
+    const { alpha, date } = req.body;
+    const parsedDate = new Date(date); 
 
-}
+    const data = await Data.find({
+      AlphaLetter: alpha,
+      EntryDate: {
+        $gte: new Date(parsedDate.setUTCHours(0, 0, 0, 0)),
+        $lt: new Date(parsedDate.setUTCHours(23, 59, 59, 999)) // End of the day
+      }
+    });
+
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 
 const SupplierEntry = async(req,res) => {
   try{
