@@ -318,7 +318,7 @@ const SupplierEnquiry = () => {
               </tr>
             ))}
           </tbody>
-          <button onClick={handelsupplierentry}>next</button>
+         
         </table>
       )}
 
