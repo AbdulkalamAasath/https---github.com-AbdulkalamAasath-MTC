@@ -147,4 +147,26 @@ const getDataBetweenDates = async (req, res) => {
   }
 };
 
-module.exports = {DataEntry,FolioEntry,FolioUpdate,getEnquiry,getFolio,SupplierEntry,SupplierEntryDetails,FolioArrayUpdate,getDataBetweenDates}
+const SupplierArrayUpdate = async (req, res) => {
+  try {
+    const { sc, ssc } = req.body; 
+    const { id } = req.params;
+
+    const data = await Sp.findOneAndUpdate(
+      { _id: id }, 
+      { $push: { Supplier_Entry:{ Supplier_code: sc, Stu_Supplier_code: ssc } } },
+      { new: true } 
+    );
+
+    if (!data) {
+      return res.status(404).json({ message: 'Data not found' });
+    }
+
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+
+
+module.exports = {DataEntry,FolioEntry,FolioUpdate,getEnquiry,getFolio,SupplierEntry,SupplierEntryDetails,FolioArrayUpdate,getDataBetweenDates,SupplierArrayUpdate}

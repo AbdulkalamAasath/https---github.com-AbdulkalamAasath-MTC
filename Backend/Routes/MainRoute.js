@@ -1,6 +1,6 @@
 const express = require('express')
 const route = express.Router()
-const {DataEntry, FolioEntry, FolioUpdate, getEnquiry, getFolio, SupplierEntry, SupplierEntryDetails, FolioArrayUpdate, getDataBetweenDates} = require('../Controllers/MainController')
+const {DataEntry, FolioEntry, FolioUpdate, getEnquiry, getFolio, SupplierEntry, SupplierEntryDetails, FolioArrayUpdate, getDataBetweenDates, SupplierArrayUpdate} = require('../Controllers/MainController')
 route.post('/enquiryentry',DataEntry)
 route.post('/Folioentry',FolioEntry)
 route.post('/updateFolioentry',FolioUpdate)
@@ -9,4 +9,5 @@ route.get('/getEnquiry',getEnquiry)
 route.get('/getFolio',getFolio)
 route.post('/getSupplierDetails',getDataBetweenDates)
 route.post('/Folioupdate/:id',FolioArrayUpdate)
+route.post('/Supplierupdate/:id',SupplierArrayUpdate)
 module.exports = route

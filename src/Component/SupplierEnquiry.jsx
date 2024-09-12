@@ -12,7 +12,8 @@ const SupplierEnquiry = () => {
     const [info,setInfo] = useState(false)
     const [Data,setData] = useState([])
     const [id,setId] = useState('')
-    const [fn,setFn] = useState(null)
+    const [sc,SetSc] = useState(null)
+    const [ssc,SetSsc] = useState(null)
     const [qn,setQn] = useState(null)
     const [error,setError] = useState()
     const formatDate = (isoDateString) => {
@@ -65,38 +66,27 @@ const SupplierEnquiry = () => {
      console.log(Data)
     const handelcontinue = async() =>
     {
-        const data = { Fn:fn , qn }
-        const res = await fetch('http://localhost:4000/MTC/updatefolioentry', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (res.ok) {
-            const result = await res.json();
-            if (result === null) {
-                setError('Folio Number is not Available');
-            } else {
-                const newFolio = {Fn:fn,qn:qn}
-                const response = await fetch(`http://localhost:4000/MTC/Folioupdate/${id}`, {
-                    method: 'POST',
-                    body: JSON.stringify( newFolio ),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
+        const data = { sc , ssc }
+        const response = await fetch(`http://localhost:4000/MTC/Supplierupdate/${id}`, {
+        method: 'POST',
+        body: JSON.stringify( data ),
+        headers: {
+       'Content-Type': 'application/json',
+       },
+      });
                 if(response.ok)
                 {
                     window.alert("Data stored")
-                    setFn('')
-                    setQn('')
+                    SetSc('')
+                    SetSsc('')
                     setError(null)
                 }
-            }
-        }
-
+         }
+    const handelnext = (e) =>
+    {
+       e.preventDefault()
+       setInfo(false)
+       setFolio(true)
     }
     
     const styles = {
@@ -213,9 +203,9 @@ const SupplierEnquiry = () => {
             {/* Form Container */}
             {!folio && !info && <div style={styles.container}>
                 <div className="enquiry-entry">
-                    <h2 style={styles.heading}>ENQUIRY ENTRY</h2>
+                    <h2 style={styles.heading}>SUPPLIER ENQUIRY ENTRY</h2>
                     <div className="enquiry-details">
-                        <h3 style={styles.subHeading}>Supplier ENQUIRY DETAILS</h3>
+                        <h3 style={styles.subHeading}>ENQUIRY DETAILS</h3>
                         <p style={styles.paragraph}>Please fill in the following details to proceed to the next step.</p>
                         <form onSubmit={handleSubmit}>
                             <div style={styles.formGroup}>
@@ -283,23 +273,73 @@ const SupplierEnquiry = () => {
                 </div>
             </div>}
             {folio && 
-            <div> 
-                <form onSubmit={(e) => handleclose(e)}>
-                <label htmlFor='folio'>folio Number</label>
-                <input type='number' id='folio' value ={fn} onChange={(e) => setFn(e.target.value)}></input>
-                <label htmlFor='qn'>Quantity</label>
-                <input type='number' id='qn' value ={qn} onChange={(e) => setQn(e.target.value)}></input>
-                <button type='button'onClick={handelcontinue}>Continue</button>
-                <button type='submit'>Close</button>
-                {error && (
-                            <div style={{ color: 'red', marginTop: '1em', textAlign: 'center' }}>{error}</div>
-                        )}
-                </form>
-            </div>}
+            <form >
+            <p style={{ textAlign: 'center' }}>Please enter the Supplier Code and Stu.Supplier Code.</p>
+
+            <label htmlFor="Supplier Code" style={{ display: 'block', marginBottom: '0.5em', fontWeight: 'bold' }}>Supplier Code: </label>
+            <input
+                value={sc}
+                onChange={(e) => SetSc(e.target.value)}
+                type="text"
+                id="Supplier Code"
+                placeholder="Enter Supplier Code 'A024' "
+                required
+                style={{ width: '100%', padding: '0.8em', marginBottom: '1em', border: '1px solid #ddd', borderRadius: '4px', backgroundColor: '#fefefe' }}
+            />
+
+            <label htmlFor="Stu.Supplier Code" style={{ display: 'block', marginBottom: '0.5em', fontWeight: 'bold' }}>Stu.Supplier Code:</label>
+            <input
+                value={ssc}
+                onChange={(e) => SetSsc(e.target.value)}
+                type="text"
+                id="Stu.Supplier Code"
+                placeholder="Enter Stu.Supp Code AVT0001 "
+                required
+                style={{ width: '100%', padding: '0.8em', marginBottom: '1em', border: '1px solid #ddd', borderRadius: '4px', backgroundColor: '#fefefe' }}
+            />
+
+            <div className="buttons" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1em' }}>
+                <button
+                    type="button"
+                    className="submit-btn"
+                    onClick={handelcontinue}
+                    style={{
+                        padding: '0.8em 2em',
+                        border: 'none',
+                        backgroundColor: 'black',
+                        color: 'white',
+                        cursor: 'pointer',
+                        borderRadius: '4px',
+                        fontWeight: 'bold',
+                        fontSize: '16px'
+                    }}
+                >
+                    next
+                </button>
+                <button
+                    type="button"
+                    className="delete-btn"
+                    style={{
+                        padding: '0.8em 2em',
+                        border: 'none',
+                        backgroundColor: 'red',
+                        color: 'white',
+                        cursor: 'pointer',
+                        borderRadius: '4px',
+                        fontWeight: 'bold',
+                        fontSize: '16px'
+                    }}
+                >
+                    close
+                </button>
+            </div>
+        </form>}
             {info &&
              <div>
                 {Data.length === 0 ? (
-        <div> No information available.</div>
+        <div> No information available.
+            <button onClick={(e) => handelnext(e)}>Next</button>
+        </div>
       ) : (
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
           <thead>
@@ -317,8 +357,9 @@ const SupplierEnquiry = () => {
                 <td style={{ border: '1px solid black', padding: '10px' }}>{value.AlphaLetter}</td>
               </tr>
             ))}
+            <button onClick={(e) => handelnext(e)}>Next</button>
           </tbody>
-          <button onClick={handelsupplierentry}>next</button>
+        
         </table>
       )}
 
