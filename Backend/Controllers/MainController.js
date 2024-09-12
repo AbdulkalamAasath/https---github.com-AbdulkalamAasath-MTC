@@ -68,8 +68,9 @@ catch(err)
 
 const SupplierEntry = async(req,res) => {
   try{
-  const {sc,ssc} = req.body
-  const data = await Sp.create({SupplierEnquiry:sc,StuSupplier:ssc})
+  const {sn,alpha,date} = req.body
+  const D = new Date(date)
+  const data = await Sp.create({Supplier_Number:sn,AlphaLetter:alpha,date:D})
   res.status(200).json(data)
 }
 catch(err)
@@ -108,4 +109,42 @@ const FolioArrayUpdate = async (req, res) => {
   }
 };
 
-module.exports = {DataEntry,FolioEntry,FolioUpdate,getEnquiry,getFolio,SupplierEntry,SupplierEntryDetails,FolioArrayUpdate}
+const getDataBetweenDates = async (req, res) => {
+  const { StartDate, endDate, sn } = req.body;
+
+  try {
+    // Validate if StartDate, endDate, and sn are provided
+    if (!StartDate || !endDate || !sn) {
+      return res.status(400).json({ message: 'StartDate, endDate, and Supplier Number are required.' });
+    }
+
+    // Convert to Date objects and validate
+    const start = new Date(StartDate);
+    const end = new Date(endDate);
+
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      return res.status(400).json({ message: 'Invalid date format. Please provide valid dates.' });
+    }
+
+    // Fetch data within the date range
+    const data = await Sp.find({
+      date: {
+        $gte: start,
+        $lte: end,
+      },
+      Supplier_Number: sn
+    });
+
+    // Check if data is found
+    if (!data.length) {
+      return res.status(404).json({ message: 'No data found for the given date range and supplier number.' });
+    }
+
+    // Return the fetched data
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {DataEntry,FolioEntry,FolioUpdate,getEnquiry,getFolio,SupplierEntry,SupplierEntryDetails,FolioArrayUpdate,getDataBetweenDates}

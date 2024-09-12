@@ -9,6 +9,7 @@ import EnquiryDetails from './Component/EnquiryDetails'
 import FolioDetails from './Component/FolioDetails'
 import EnquirySupplier from './Component/EnquirySupplier'
 import SupplierDetails from './Component/SupplierDetails'
+import SupplierEnquiry from './Component/SupplierEnquiry'
 
 const App = () => {
   return (
@@ -22,7 +23,7 @@ const App = () => {
           <Route path='/foliopage' element={<AddFolioPopup/>}></Route>
           <Route path='/Enquiry-Details' element={<EnquiryDetails/>}></Route>
           <Route path='/Folio-Details' element={<FolioDetails/>}></Route>
-          <Route path='/Supplier-Enquiry' element={<EnquirySupplier/>}></Route>
+          <Route path='/Supplier-Enquiry' element={<SupplierEnquiry/>}></Route>
           <Route path='/Supplier-Details' element={<SupplierDetails/>}></Route>
          </Routes>
     </BrowserRouter>
