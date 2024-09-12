@@ -54,17 +54,25 @@ catch(err)
 }
 
 }
-const getEnquiry = async(req,res) => {
-  try{
-  const data = await Data.find()
-  res.status(200).json(data)
-}
-catch(err)
-{
-  res.status(400).json(err.message)
-}
+const getEnquiry = async (req, res) => {
+  try {
+    const { alpha, date } = req.body;
+    const parsedDate = new Date(date); 
 
-}
+    const data = await Data.find({
+      AlphaLetter: alpha,
+      EntryDate: {
+        $gte: new Date(parsedDate.setUTCHours(0, 0, 0, 0)),
+        $lt: new Date(parsedDate.setUTCHours(23, 59, 59, 999)) // End of the day
+      }
+    });
+
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 
 const SupplierEntry = async(req,res) => {
   try{
@@ -147,4 +155,26 @@ const getDataBetweenDates = async (req, res) => {
   }
 };
 
-module.exports = {DataEntry,FolioEntry,FolioUpdate,getEnquiry,getFolio,SupplierEntry,SupplierEntryDetails,FolioArrayUpdate,getDataBetweenDates}
+const SupplierArrayUpdate = async (req, res) => {
+  try {
+    const { sc, ssc } = req.body; 
+    const { id } = req.params;
+
+    const data = await Sp.findOneAndUpdate(
+      { _id: id }, 
+      { $push: { Supplier_Entry:{ Supplier_code: sc, Stu_Supplier_code: ssc } } },
+      { new: true } 
+    );
+
+    if (!data) {
+      return res.status(404).json({ message: 'Data not found' });
+    }
+
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+
+
+module.exports = {DataEntry,FolioEntry,FolioUpdate,getEnquiry,getFolio,SupplierEntry,SupplierEntryDetails,FolioArrayUpdate,getDataBetweenDates,SupplierArrayUpdate}
