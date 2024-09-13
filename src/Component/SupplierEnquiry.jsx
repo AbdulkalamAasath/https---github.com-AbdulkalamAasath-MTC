@@ -164,12 +164,12 @@ const SupplierEnquiry = () => {
             fontWeight: 'bold',
         },
         formControl: {
-            width: '100%',
+            width: '98%',
             padding: '10px',
             fontSize: '16px',
             border: '1px solid #cbd5e0',
             borderRadius: '4px',
-            backgroundColor: '#edf2f7',
+            backgroundColor: '#f9f9f9',
         },
         formControlFocus: {
             outline: 'none',
@@ -214,6 +214,7 @@ const SupplierEnquiry = () => {
                                     type="text"
                                     id="entry-date"
                                     style={styles.formControl}
+                                    placeholder="yyyy-mm-dd"
                                     value={entryDate}
                                     onChange={(e) => setEntryDate(e.target.value)}
                                     required
@@ -273,67 +274,51 @@ const SupplierEnquiry = () => {
                 </div>
             </div>}
             {folio && 
-            <form >
-            <p style={{ textAlign: 'center' }}>Please enter the Supplier Code and Stu.Supplier Code.</p>
+    <form>
+        <p style={{ textAlign: 'center' }}>Please enter the Supplier Code and Stu.Supplier Code.</p>
 
-            <label htmlFor="Supplier Code" style={{ display: 'block', marginBottom: '0.5em', fontWeight: 'bold' }}>Supplier Code: </label>
-            <input
-                value={sc}
-                onChange={(e) => SetSc(e.target.value)}
-                type="text"
-                id="Supplier Code"
-                placeholder="Enter Supplier Code 'A024' "
-                required
-                style={{ width: '100%', padding: '0.8em', marginBottom: '1em', border: '1px solid #ddd', borderRadius: '4px', backgroundColor: '#fefefe' }}
-            />
+        <label htmlFor="Supplier Code" style={styles.formLabel}>Supplier Code: </label>
+        <input
+            value={sc}
+            onChange={(e) => SetSc(e.target.value)}
+            type="text"
+            id="Supplier Code"
+            placeholder="Enter Supplier Code 'A024' "
+            required
+            style={styles.formControl}
+        />
 
-            <label htmlFor="Stu.Supplier Code" style={{ display: 'block', marginBottom: '0.5em', fontWeight: 'bold' }}>Stu.Supplier Code:</label>
-            <input
-                value={ssc}
-                onChange={(e) => SetSsc(e.target.value)}
-                type="text"
-                id="Stu.Supplier Code"
-                placeholder="Enter Stu.Supp Code AVT0001 "
-                required
-                style={{ width: '100%', padding: '0.8em', marginBottom: '1em', border: '1px solid #ddd', borderRadius: '4px', backgroundColor: '#fefefe' }}
-            />
+        <label htmlFor="Stu.Supplier Code" style={styles.formLabel}>Stu.Supplier Code:</label>
+        <input
+            value={ssc}
+            onChange={(e) => SetSsc(e.target.value)}
+            type="text"
+            id="Stu.Supplier Code"
+            placeholder="Enter Stu.Supp Code AVT0001"
+            required
+            style={styles.formControl}
+        />
 
-            <div className="buttons" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1em' }}>
-                <button
-                    type="button"
-                    className="submit-btn"
-                    onClick={handelcontinue}
-                    style={{
-                        padding: '0.8em 2em',
-                        border: 'none',
-                        backgroundColor: 'black',
-                        color: 'white',
-                        cursor: 'pointer',
-                        borderRadius: '4px',
-                        fontWeight: 'bold',
-                        fontSize: '16px'
-                    }}
-                >
-                    next
-                </button>
-                <button
-                    type="button"
-                    className="delete-btn"
-                    style={{
-                        padding: '0.8em 2em',
-                        border: 'none',
-                        backgroundColor: 'red',
-                        color: 'white',
-                        cursor: 'pointer',
-                        borderRadius: '4px',
-                        fontWeight: 'bold',
-                        fontSize: '16px'
-                    }}
-                >
-                    close
-                </button>
-            </div>
-        </form>}
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1em' }}>
+            <button
+                type="button"
+                className="submit-btn"
+                onClick={handelcontinue}
+                style={styles.btn}
+            >
+                Next
+            </button>
+            <button
+                type="button"
+                className="delete-btn"
+                onClick={handleclose}
+                style={{ ...styles.btn, backgroundColor: 'red' }}
+            >
+                Close
+            </button>
+        </div>
+    </form>
+}
             {info &&
              <div>
                 {Data.length === 0 ? (
