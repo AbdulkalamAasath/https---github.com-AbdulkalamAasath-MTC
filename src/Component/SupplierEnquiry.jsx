@@ -123,12 +123,12 @@ const SupplierEnquiry = () => {
             fontWeight: 'bold',
         },
         formControl: {
-            width: '100%',
+            width: '98%',
             padding: '10px',
             fontSize: '16px',
             border: '1px solid #cbd5e0',
             borderRadius: '4px',
-            backgroundColor: '#edf2f7',
+            backgroundColor: '#f9f9f9',
         },
         btn: {
             display: 'inline-block',
@@ -171,9 +171,10 @@ const SupplierEnquiry = () => {
                         <div style={styles.formGroup}>
                             <label htmlFor="entry-date" style={styles.formLabel}>Entry Date</label>
                             <input
-                                type="date"
+                                type="text"
                                 id="entry-date"
                                 style={styles.formControl}
+                                placeholder="YYYY-MM-DD"
                                 value={entryDate}
                                 onChange={(e) => setEntryDate(e.target.value)}
                                 required
@@ -206,9 +207,10 @@ const SupplierEnquiry = () => {
                         <div style={styles.formGroup}>
                             <label htmlFor="from-date" style={styles.formLabel}>From Date</label>
                             <input
-                                type="date"
+                                type="text"
                                 id="from-date"
                                 style={styles.formControl}
+                                placeholder="YYYY-MM-DD"
                                 value={fromDate}
                                 onChange={(e) => setFromDate(e.target.value)}
                                 required
@@ -217,9 +219,10 @@ const SupplierEnquiry = () => {
                         <div style={styles.formGroup}>
                             <label htmlFor="to-date" style={styles.formLabel}>To Date</label>
                             <input
-                                type="date"
+                                type="text"
                                 id="to-date"
                                 style={styles.formControl}
+                                placeholder="YYYY-MM-DD"
                                 value={toDate}
                                 onChange={(e) => settoDate(e.target.value)}
                                 required
