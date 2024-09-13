@@ -359,7 +359,6 @@ const SupplierEnquiry = () => {
             ))}
             <button onClick={(e) => handelnext(e)}>Next</button>
           </tbody>
-          <button onClick={handelsupplierentry}>next</button>
         </table>
       )}
 
