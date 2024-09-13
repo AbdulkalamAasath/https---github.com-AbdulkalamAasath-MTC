@@ -1,3 +1,4 @@
+//FolioDetails.jsx
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 
@@ -34,15 +35,15 @@ const FolioDetails = () => {
         <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
           <thead>
             <tr>
-              <th style={{ border: '1px solid black', padding: '10px' }}>Folio Number</th>
-              <th style={{ border: '1px solid black', padding: '10px' }}>Quantity</th>
+            <th style={tableHeaderStyle}>FolioNumber</th>
+            <th style={tableHeaderStyle}>Quantity</th>
             </tr>
           </thead>
           <tbody>
             {Data.map((value, index) => (
               <tr key={index}>
-                <td style={{ border: '1px solid black', padding: '10px' }}>{value.FolioNumber}</td>
-                <td style={{ border: '1px solid black', padding: '10px' }}>{value.Quantity}</td>
+          <td style={tableCellStyle}>{value.FolioNumber}</td> 
+          <td style={tableCellStyle}>{value.Quantity}</td> 
               </tr>
             ))}
           </tbody>
@@ -50,6 +51,19 @@ const FolioDetails = () => {
       )}
     </div>
   );
+};
+const tableHeaderStyle = {
+  border: '1px solid #ddd',
+  padding: '10px',
+  textAlign: 'center',
+  backgroundColor: '#f9f9f9',
+  fontWeight: 'bold',
+};
+
+const tableCellStyle = {
+  border: '1px solid #ddd',
+  padding: '10px',
+  textAlign: 'center',
 };
 
 export default FolioDetails;

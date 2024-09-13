@@ -39,7 +39,8 @@ const NewFolio = () => {
                     border: '1px solid #ddd',
                     boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
                     width: '80%',
-                    maxWidth: '800px'
+                    maxWidth: '800px',
+                    marginBottom:'10%'
                 }}>
                     <form onSubmit={(e) => handelclick(e)}>
                         <h2 style={{ marginBottom: '1em', textAlign: 'center' }}>NEW FOLIO  DETAILS</h2>

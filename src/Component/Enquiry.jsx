@@ -206,6 +206,7 @@ const Enquiry = () => {
                                     type="text"
                                     id="entry-date"
                                     style={styles.formControl}
+                                    placeholder="yyyy-mm-dd"
                                     value={entryDate}
                                     onChange={(e) => setEntryDate(e.target.value)}
                                     required
@@ -226,9 +227,10 @@ const Enquiry = () => {
                             <div style={styles.formGroup}>
                                 <label htmlFor="due-date" style={styles.formLabel}>Due Date *</label>
                                 <input
-                                    type="date"
+                                    type="text"
                                     id="due-date"
                                     style={styles.formControl}
+                                    placeholder="yyyy-mm-dd"
                                     value={dueDate}
                                     onChange={(e) => setDueDate(e.target.value)}
                                     required
